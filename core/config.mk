@@ -357,8 +357,8 @@ include $(BUILD_SYSTEM)/envsetup.mk
 FIND_LEAVES_EXCLUDES := $(addprefix --prune=, $(SCAN_EXCLUDE_DIRS) .repo .git)
 
 -include vendor/extra/BoardConfigExtra.mk
-ifneq ($(OCTAVI_BUILD),)
-include vendor/octavi/config/BoardConfigOctavi.mk
+ifneq ($(BLAZE_BUILD),)
+include vendor/blaze/config/BoardConfigBlaze.mk
 endif
 
 # The build system exposes several variables for where to find the kernel
@@ -1274,10 +1274,10 @@ endif
 DEFAULT_DATA_OUT_MODULES := ltp $(ltp_packages) $(kselftest_modules)
 .KATI_READONLY := DEFAULT_DATA_OUT_MODULES
 
-ifneq ($(OCTAVI_BUILD),)
+ifneq ($(BLAZE_BUILD),)
 ## We need to be sure the global selinux policies are included
 ## last, to avoid accidental resetting by device configs
-$(eval include device/octavi/sepolicy/common/sepolicy.mk)
+$(eval include device/blaze/sepolicy/common/sepolicy.mk)
 endif
 
 # Include any vendor specific config.mk file
