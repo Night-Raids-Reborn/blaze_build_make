@@ -407,7 +407,6 @@ endif
 # See envsetup.mk for a description of SCAN_EXCLUDE_DIRS
 FIND_LEAVES_EXCLUDES := $(addprefix --prune=, $(SCAN_EXCLUDE_DIRS) .repo .git)
 
--include vendor/extra/BoardConfigExtra.mk
 ifneq ($(BLAZE_BUILD),)
 include vendor/blaze/config/BoardConfigBlaze.mk
 endif
@@ -1317,6 +1316,6 @@ DEFAULT_DATA_OUT_MODULES := ltp $(ltp_packages) $(kselftest_modules)
 .KATI_READONLY := DEFAULT_DATA_OUT_MODULES
 
 # Include any vendor specific config.mk file
--include vendor/*/build/core/config.mk
+-include vendor/blaze/build/core/config.mk
 
 include $(BUILD_SYSTEM)/dumpvar.mk
