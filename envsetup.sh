@@ -147,13 +147,6 @@ function check_product()
         echo "Couldn't locate the top of the tree.  Try setting TOP." >&2
         return
     fi
-    if (echo -n $1 | grep -q -e "^blaze_") ; then
-        BLAZE_BUILD=$(echo -n $1 | sed -e 's/^blaze_//g')
-    else
-        BLAZE_BUILD=
-    fi
-    export BLAZE_BUILD
-
         TARGET_PRODUCT=$1 \
         TARGET_BUILD_VARIANT= \
         TARGET_BUILD_TYPE= \
@@ -759,22 +752,6 @@ function lunch()
         echo
         echo "Invalid lunch combo: $selection"
         return 1
-    fi
-
-    check_product $product
-    if [ $? -ne 0 ]
-    then
-        # if we can't find a product, try to grab it off the ProjectBlaze Devices GitHub
-        T=$(gettop)
-        cd $T > /dev/null
-        vendor/blaze/build/tools/roomservice.py $product
-        cd - > /dev/null
-        check_product $product
-    else
-        T=$(gettop)
-        cd $T > /dev/null
-        vendor/blaze/build/tools/roomservice.py $product true
-        cd - > /dev/null
     fi
 
     TARGET_PRODUCT=$product \
